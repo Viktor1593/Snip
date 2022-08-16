@@ -1,6 +1,6 @@
 ﻿#region File Information
 /*
- * Copyright (C) 2018-2021 David Rudie
+ * Copyright (C) 2018 David Rudie
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,25 +24,22 @@ namespace Winter
     {
         public static string SnipForm { get; set; }
         public static string NewVersionAvailable { get; set; }
-        public static string Spotify { get; set; }
-        public static string Itunes { get; set; }
+        public static string VLC { get; set; }
+        public static string WindowsMediaPlayer { get; set; }
         public static string SwitchedToPlayer { get; set; }
         public static string PlayerIsNotRunning { get; set; }
         public static string NoTrackPlaying { get; set; }
         public static string SetOutputFormat { get; set; }
         public static string SaveInformationSeparately { get; set; }
         public static string SaveAlbumArtwork { get; set; }
-        public static string KeepSpotifyAlbumArtwork { get; set; }
         public static string ImageResolutionSmall { get; set; }
         public static string ImageResolutionMedium { get; set; }
         public static string ImageResolutionLarge { get; set; }
-        public static string CacheSpotifyMetadata { get; set; }
         public static string SaveTrackHistory { get; set; }
         public static string DisplayTrackPopup { get; set; }
         public static string EmptyFile { get; set; }
         public static string EnableHotkeys { get; set; }
         public static string ExitApplication { get; set; }
-        public static string ItunesException { get; set; }
         public static string SetOutputFormatForm { get; set; }
         public static string SetTrackFormat { get; set; }
         public static string SetSeparatorFormat { get; set; }

@@ -36,7 +36,10 @@ namespace Winter
                     ModifierHookKeys modifier = (ModifierHookKeys)((int)m.LParam & 0xFFFF);
 
                     // Invoke the event to notify the parent.
-                    KeyPressed?.Invoke(this, new KeyPressedEventArgs(modifier, key));
+                    if (KeyPressed != null)
+                    {
+                        KeyPressed(this, new KeyPressedEventArgs(modifier, key));
+                    }
                 }
             }
 
@@ -60,7 +63,10 @@ namespace Winter
             // Register the event of the inner native window.
             this.window.KeyPressed += delegate(object sender, KeyPressedEventArgs args)
             {
-                KeyPressed?.Invoke(this, args);
+                if (KeyPressed != null)
+                {
+                    KeyPressed(this, args);
+                }
             };
         }
 
@@ -77,11 +83,6 @@ namespace Winter
             // Register the hot key.
             if (!UnsafeNativeMethods.RegisterHotKey(this.window.Handle, this.currentId, (uint)modifier, (uint)key))
             {
-                // Disable messagebox for now. It will silently skip hotkeys that are already registered.
-                // Some users may use some, but not all of the available, hotkeys and do not want to disable hotkeys.
-                // This way it will fail silently instead of showing an annoying popup every time they start Snip.
-                // A better solution will be needed in the future.
-                /*
                 int lastError = Marshal.GetLastWin32Error();
 
                 if (lastError == 1409)
@@ -106,7 +107,6 @@ namespace Winter
                 {
                     throw new InvalidOperationException("Couldn't register the hotkey: " + lastError);
                 }
-                */
             }
         }
 

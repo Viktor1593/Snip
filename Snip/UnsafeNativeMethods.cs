@@ -1,6 +1,6 @@
 ﻿#region File Information
 /*
- * Copyright (C) 2012-2021 David Rudie
+ * Copyright (C) 2012-2018 David Rudie
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,6 +26,23 @@ namespace Winter
 
     internal static class UnsafeNativeMethods
     {
+        [DllImport("kernel32.dll", SetLastError = true)]
+        internal static extern IntPtr CreateToolhelp32Snapshot(
+            [In] Enumerations.Snapshots dwFlags,
+            [In] uint idth32ProcessId);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool Process32First(
+            [In] IntPtr hSnapshot,
+            [In] [Out] ref ProcessFunctions.ProcessEntry lppe);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool Process32Next(
+            [In] IntPtr hSnapshot,
+            [In] [Out] ref ProcessFunctions.ProcessEntry lppe);
+
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
         [return: MarshalAs(UnmanagedType.Bool)]
         internal static extern bool RegisterHotKey(
@@ -40,7 +57,17 @@ namespace Winter
             [In] [Optional] IntPtr windowHandle,
             [In] int id);
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
+        internal static extern IntPtr FindWindow(
+            [In] string className,
+            [In] string windowName);
+
+        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
+        internal static extern int GetWindowText(
+            [In] IntPtr windowHandle,
+            [Out] StringBuilder windowText,
+            [In] int maxCount);
+
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
         internal static extern IntPtr SendMessage(
             [In] IntPtr windowHandle,
@@ -48,16 +75,54 @@ namespace Winter
             [In] IntPtr wParam,
             [In] IntPtr lParam);
 
-        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
-        internal static extern int GetClassName(
-            [In] IntPtr windowHandle,
-            [Out] StringBuilder className,
-            [In] int maxCount);
+        [DllImport("kernel32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool IsWow64Process(
+            [In] IntPtr process,
+            [Out] [MarshalAs(UnmanagedType.Bool)] out bool systemInfo);
 
-        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
-        internal static extern int GetWindowText(
-            [In] IntPtr windowHandle,
-            [Out] StringBuilder windowText,
-            [In] int maxCount);
+        [DllImport("kernel32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool CloseHandle(
+            [In] IntPtr handle);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        internal static extern IntPtr OpenProcess(
+            [In] Enumerations.ProcessAccess desiredAccess,
+            [In] [MarshalAs(UnmanagedType.Bool)] bool inheritHandle,
+            [In] int processId);
+
+        [DllImport("psapi.dll", SetLastError = true, CharSet = CharSet.Unicode)]
+        internal static extern int GetModuleBaseName(
+            [In] IntPtr process,
+            [In] [Optional] IntPtr moduleHandle,
+            [Out] StringBuilder baseName,
+            [In] int size);
+
+        [DllImport("psapi.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool GetModuleInformation(
+            [In] IntPtr process,
+            [In] [Optional] IntPtr moduleHandle,
+            [Out] IntPtr moduleInfo, // out ModuleInfo moduleInfo
+            [In] int size);
+
+        [DllImport("psapi.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool EnumProcessModulesEx(
+            [In] IntPtr process,
+            [Out] IntPtr[] moduleHandles,
+            [In] int size,
+            [Out] out int requiredSize,
+            [In] Enumerations.ModuleFilter filterFlags);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool ReadProcessMemory(
+            [In] IntPtr process,
+            [In] IntPtr baseAddress,
+            [Out] byte[] buffer,
+            [In] IntPtr size,
+            [Out] IntPtr bytesRead);
     }
 }

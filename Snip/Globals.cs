@@ -1,6 +1,6 @@
 ﻿#region File Information
 /*
- * Copyright (C) 2012-2021 David Rudie
+ * Copyright (C) 2012-2018 David Rudie
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -54,9 +54,7 @@ namespace Winter
         public static MediaPlayerSelection PlayerSelection { get; set; }
         public static bool SaveSeparateFiles { get; set; }
         public static bool SaveAlbumArtwork { get; set; }
-        public static bool KeepSpotifyAlbumArtwork { get; set; }
         public static AlbumArtworkResolution ArtworkResolution { get; set; }
-        public static bool CacheSpotifyMetadata { get; set; }
         public static bool SaveHistory { get; set; }
         public static bool DisplayTrackPopup { get; set; }
         public static bool EmptyFileIfNoTrackPlaying { get; set; }
@@ -88,8 +86,8 @@ namespace Winter
 
         public enum MediaPlayerSelection : int
         {
-            Spotify = 0,
-            Itunes = 1
+            VLC = 4,
+            WindowsMediaPlayer = 7
         }
 
         public enum MediaCommand : int

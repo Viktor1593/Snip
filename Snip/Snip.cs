@@ -1,6 +1,6 @@
 ﻿#region File Information
 /*
- * Copyright (C) 2012-2021 David Rudie
+ * Copyright (C) 2012-2018 David Rudie
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -84,38 +84,35 @@ namespace Winter
 
         private static void SetLocalizedMessages()
         {
-            LocalizedMessages.SnipForm = Globals.ResourceManager.GetString("SnipForm");
-            LocalizedMessages.NewVersionAvailable = Globals.ResourceManager.GetString("NewVersionAvailable");
-            LocalizedMessages.Spotify = Globals.ResourceManager.GetString("Spotify");
-            LocalizedMessages.Itunes = Globals.ResourceManager.GetString("Itunes");
-            LocalizedMessages.SwitchedToPlayer = Globals.ResourceManager.GetString("SwitchedToPlayer");
-            LocalizedMessages.PlayerIsNotRunning = Globals.ResourceManager.GetString("PlayerIsNotRunning");
-            LocalizedMessages.NoTrackPlaying = Globals.ResourceManager.GetString("NoTrackPlaying");
-            LocalizedMessages.SetOutputFormat = Globals.ResourceManager.GetString("SetOutputFormat");
-            LocalizedMessages.SaveInformationSeparately = Globals.ResourceManager.GetString("SaveInformationSeparately");
-            LocalizedMessages.SaveAlbumArtwork = Globals.ResourceManager.GetString("SaveAlbumArtwork");
-            LocalizedMessages.KeepSpotifyAlbumArtwork = Globals.ResourceManager.GetString("KeepSpotifyAlbumArtwork");
-            LocalizedMessages.ImageResolutionSmall = Globals.ResourceManager.GetString("ImageResolutionSmall");
-            LocalizedMessages.ImageResolutionMedium = Globals.ResourceManager.GetString("ImageResolutionMedium");
-            LocalizedMessages.ImageResolutionLarge = Globals.ResourceManager.GetString("ImageResolutionLarge");
-            LocalizedMessages.CacheSpotifyMetadata = Globals.ResourceManager.GetString("CacheSpotifyMetadata");
-            LocalizedMessages.SaveTrackHistory = Globals.ResourceManager.GetString("SaveTrackHistory");
-            LocalizedMessages.DisplayTrackPopup = Globals.ResourceManager.GetString("DisplayTrackPopup");
-            LocalizedMessages.EmptyFile = Globals.ResourceManager.GetString("EmptyFile");
-            LocalizedMessages.EnableHotkeys = Globals.ResourceManager.GetString("EnableHotkeys");
-            LocalizedMessages.ExitApplication = Globals.ResourceManager.GetString("ExitApplication");
-            LocalizedMessages.ItunesException = Globals.ResourceManager.GetString("ItunesException");
-            LocalizedMessages.SetOutputFormatForm = Globals.ResourceManager.GetString("SetOutputFormatForm");
-            LocalizedMessages.SetTrackFormat = Globals.ResourceManager.GetString("SetTrackFormat");
-            LocalizedMessages.SetSeparatorFormat = Globals.ResourceManager.GetString("SetSeparatorFormat");
-            LocalizedMessages.SetArtistFormat = Globals.ResourceManager.GetString("SetArtistFormat");
-            LocalizedMessages.SetAlbumFormat = Globals.ResourceManager.GetString("SetAlbumFormat");
-            LocalizedMessages.ButtonDefaults = Globals.ResourceManager.GetString("ButtonDefaults");
-            LocalizedMessages.ButtonSave = Globals.ResourceManager.GetString("ButtonSave");
-            LocalizedMessages.TrackFormat = Globals.ResourceManager.GetString("TrackFormat");
-            LocalizedMessages.SeparatorFormat = Globals.ResourceManager.GetString("SeparatorFormat");
-            LocalizedMessages.ArtistFormat = Globals.ResourceManager.GetString("ArtistFormat");
-            LocalizedMessages.AlbumFormat = Globals.ResourceManager.GetString("AlbumFormat");
+            LocalizedMessages.SnipForm = "SnipForm";
+            LocalizedMessages.NewVersionAvailable = "NewVersionAvailable";
+            LocalizedMessages.VLC = "VLC";
+            LocalizedMessages.WindowsMediaPlayer = "WindowsMediaPlayer";
+            LocalizedMessages.SwitchedToPlayer = "SwitchedToPlayer";
+            LocalizedMessages.PlayerIsNotRunning = "PlayerIsNotRunning";
+            LocalizedMessages.NoTrackPlaying = "NoTrackPlaying";
+            LocalizedMessages.SetOutputFormat = "SetOutputFormat";
+            LocalizedMessages.SaveInformationSeparately = "SaveInformationSeparately";
+            LocalizedMessages.SaveAlbumArtwork = "SaveAlbumArtwork";
+            LocalizedMessages.ImageResolutionSmall = "ImageResolutionSmall";
+            LocalizedMessages.ImageResolutionMedium = "ImageResolutionMedium";
+            LocalizedMessages.ImageResolutionLarge = "ImageResolutionLarge";
+            LocalizedMessages.SaveTrackHistory = "SaveTrackHistory";
+            LocalizedMessages.DisplayTrackPopup = "DisplayTrackPopup";
+            LocalizedMessages.EmptyFile = "EmptyFile";
+            LocalizedMessages.EnableHotkeys = "EnableHotkeys";
+            LocalizedMessages.ExitApplication = "ExitApplication";
+            LocalizedMessages.SetOutputFormatForm = "SetOutputFormatForm";
+            LocalizedMessages.SetTrackFormat = "SetTrackFormat";
+            LocalizedMessages.SetSeparatorFormat = "SetSeparatorFormat";
+            LocalizedMessages.SetArtistFormat = "SetArtistFormat";
+            LocalizedMessages.SetAlbumFormat = "SetAlbumFormat";
+            LocalizedMessages.ButtonDefaults = "ButtonDefaults";
+            LocalizedMessages.ButtonSave = "ButtonSave";
+            LocalizedMessages.TrackFormat = "TrackFormat";
+            LocalizedMessages.SeparatorFormat = "SeparatorFormat";
+            LocalizedMessages.ArtistFormat = "ArtistFormat";
+            LocalizedMessages.AlbumFormat = "AlbumFormat";
         }
 
         private void KeyboardHook_KeyPressed(object sender, KeyPressedEventArgs e)
@@ -178,78 +175,46 @@ namespace Winter
 
             this.toolStripMenuItemSaveSeparateFiles.Checked = Globals.SaveSeparateFiles;
             this.toolStripMenuItemSaveAlbumArtwork.Checked = Globals.SaveAlbumArtwork;
-            this.toolStripMenuItemKeepSpotifyAlbumArtwork.Checked = Globals.KeepSpotifyAlbumArtwork;
 
             this.ToggleArtwork(Globals.ArtworkResolution);
 
-            this.toolStripMenuItemCacheSpotifyMetadata.Checked = Globals.CacheSpotifyMetadata;
             this.toolStripMenuItemSaveHistory.Checked = Globals.SaveHistory;
             this.toolStripMenuItemDisplayTrackPopup.Checked = Globals.DisplayTrackPopup;
             this.toolStripMenuItemEmptyFileIfNoTrackPlaying.Checked = Globals.EmptyFileIfNoTrackPlaying;
-            this.toolStripMenuItemEnableHotkeys.Checked = Globals.EnableHotkeys;
         }
 
         private void ToggleHotkeys()
         {
-            if (this.toolStripMenuItemEnableHotkeys.Checked)
+            if (this.keyboardHook != null)
             {
-                if (this.keyboardHook == null)
-                {
-                    this.keyboardHook = new KeyboardHook();
-                }
-
-                this.keyboardHook.KeyPressed += new EventHandler<KeyPressedEventArgs>(KeyboardHook_KeyPressed);
-                this.keyboardHook.RegisterHotkey(ModifierHookKeys.Control | ModifierHookKeys.Alt, Keys.OemOpenBrackets);    // [
-                this.keyboardHook.RegisterHotkey(ModifierHookKeys.Control | ModifierHookKeys.Alt, Keys.OemCloseBrackets);   // ]
-                this.keyboardHook.RegisterHotkey(ModifierHookKeys.Control | ModifierHookKeys.Alt, Keys.Oemplus);            // +
-                this.keyboardHook.RegisterHotkey(ModifierHookKeys.Control | ModifierHookKeys.Alt, Keys.OemMinus);           // -
-                this.keyboardHook.RegisterHotkey(ModifierHookKeys.Control | ModifierHookKeys.Alt, Keys.Enter);              // Enter
-                this.keyboardHook.RegisterHotkey(ModifierHookKeys.Control | ModifierHookKeys.Alt, Keys.Back);               // Backspace
-                this.keyboardHook.RegisterHotkey(ModifierHookKeys.Control | ModifierHookKeys.Alt, Keys.M);                  // M
-                this.keyboardHook.RegisterHotkey(ModifierHookKeys.Control | ModifierHookKeys.Alt, Keys.P);                  // P
-            }
-            else
-            {
-                if (this.keyboardHook != null)
-                {
-                    this.keyboardHook.Dispose();
-                    this.keyboardHook = null;
-                }
+                this.keyboardHook.Dispose();
+                this.keyboardHook = null;
             }
         }
 
         private void PlayerSelectionCheck(object sender, EventArgs e)
         {
-            if (sender == this.toolStripMenuItemSpotify)
+            if (sender == this.toolStripMenuItemVlc)
             {
-                this.TogglePlayer(Globals.MediaPlayerSelection.Spotify);
-            }
-            else if (sender == this.toolStripMenuItemItunes)
-            {
-                this.TogglePlayer(Globals.MediaPlayerSelection.Itunes);
+                this.TogglePlayer(Globals.MediaPlayerSelection.VLC);
             }
         }
 
         private void TogglePlayer(Globals.MediaPlayerSelection player)
         {
-            this.toolStripMenuItemSpotify.Checked    = player == Globals.MediaPlayerSelection.Spotify;
-            this.toolStripMenuItemItunes.Checked     = player == Globals.MediaPlayerSelection.Itunes;
+            this.toolStripMenuItemVlc.Checked        = player == Globals.MediaPlayerSelection.VLC;
 
             Globals.CurrentPlayer.Unload();
             string playerName = string.Empty;
 
             switch (player)
             {
-                case Globals.MediaPlayerSelection.Spotify:
-                    Globals.CurrentPlayer = new Spotify();
-                    playerName = LocalizedMessages.Spotify;
-                    break;
-                case Globals.MediaPlayerSelection.Itunes:
-                    Globals.CurrentPlayer = new Itunes();
-                    playerName = LocalizedMessages.Itunes;
+                case Globals.MediaPlayerSelection.VLC:
+                    Globals.CurrentPlayer = new VLC();
+                    playerName = LocalizedMessages.VLC;
                     break;
                 default:
-                    break;
+                    return;
             }
 
             Globals.CurrentPlayer.Load();
@@ -274,18 +239,6 @@ namespace Winter
             Globals.SaveAlbumArtwork = this.toolStripMenuItemSaveAlbumArtwork.Checked;
         }
 
-        private void ToolStripMenuItemKeepSpotifyAlbumArtwork_Click(object sender, EventArgs e)
-        {
-            this.toolStripMenuItemKeepSpotifyAlbumArtwork.Checked = !this.toolStripMenuItemKeepSpotifyAlbumArtwork.Checked;
-            Globals.KeepSpotifyAlbumArtwork = this.toolStripMenuItemKeepSpotifyAlbumArtwork.Checked;
-        }
-
-        private void ToolStripMenuItemCacheSpotifyMetadata_Click(object sender, EventArgs e)
-        {
-            this.toolStripMenuItemCacheSpotifyMetadata.Checked = !this.toolStripMenuItemCacheSpotifyMetadata.Checked;
-            Globals.CacheSpotifyMetadata = this.toolStripMenuItemCacheSpotifyMetadata.Checked;
-        }
-
         private void ToolStripMenuItemSaveHistory_Click(object sender, EventArgs e)
         {
             this.toolStripMenuItemSaveHistory.Checked = !this.toolStripMenuItemSaveHistory.Checked;
@@ -308,11 +261,11 @@ namespace Winter
             // Make sure this is set before starting the timer.
             //if (Globals.DebuggingIsEnabled)
             //{
-            //Debug.MeasureMethod(Globals.CurrentPlayer.Update); // Writes a LOT of data
+                //Debug.MeasureMethod(Globals.CurrentPlayer.Update); // Writes a LOT of data
             //}
             //else
             //{
-            Globals.CurrentPlayer.Update();
+                Globals.CurrentPlayer.Update();
             //}
         }
 
@@ -382,13 +335,6 @@ namespace Winter
         {
             this.toolStripMenuItemEmptyFileIfNoTrackPlaying.Checked = !this.toolStripMenuItemEmptyFileIfNoTrackPlaying.Checked;
             Globals.EmptyFileIfNoTrackPlaying = this.toolStripMenuItemEmptyFileIfNoTrackPlaying.Checked;
-        }
-
-        private void ToolStripMenuItemEnableHotkeys_Click(object sender, EventArgs e)
-        {
-            this.toolStripMenuItemEnableHotkeys.Checked = !this.toolStripMenuItemEnableHotkeys.Checked;
-            this.ToggleHotkeys();
-            Globals.EnableHotkeys = this.toolStripMenuItemEnableHotkeys.Checked;
         }
 
         private void ToolStripMenuItemSnipVersion_Click(object sender, EventArgs e)

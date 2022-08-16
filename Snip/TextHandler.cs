@@ -1,6 +1,6 @@
 ﻿#region File Information
 /*
- * Copyright (C) 2012-2021 David Rudie
+ * Copyright (C) 2012-2018 David Rudie
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,7 +35,6 @@ namespace Winter
         {
             if (!string.IsNullOrEmpty(text))
             {
-                text = text.Trim(); //trim trailing spaces
 
                 int maxLength = 127; // 128 max length
 
@@ -49,7 +48,7 @@ namespace Winter
                     //which implicitly removes the space from the resultant string 
                     int nextSpace = text.LastIndexOf(' ', maxLength); 
 
-                    text = string.Format(CultureInfo.CurrentCulture, "{0} ...", text.Substring(0, (nextSpace > 0) ? nextSpace : maxLength).Trim());
+                    text = string.Format(CultureInfo.CurrentCulture, "{0} ...", text.Substring(0, (nextSpace > 0) ? nextSpace : maxLength));
                 }
 
                 Type t = typeof(NotifyIcon);

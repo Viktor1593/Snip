@@ -1,6 +1,6 @@
 ﻿#region File Information
 /*
- * Copyright (C) 2016-2021 David Rudie
+ * Copyright (C) 2016-2018 David Rudie
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -42,8 +42,9 @@ namespace Winter
                     var latestVersionOnGithub = jsonSummary.tag_name.ToString().Replace("v", string.Empty);
 
                     Version currentVersion = Assembly.GetExecutingAssembly().GetName().Version;
+                    Version latestVersion = null;
 
-                    Version.TryParse(latestVersionOnGithub, out Version latestVersion);
+                    Version.TryParse(latestVersionOnGithub, out latestVersion);
 
                     int comparison = latestVersion.CompareTo(currentVersion);
 

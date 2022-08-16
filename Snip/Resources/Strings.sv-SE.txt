@@ -13,7 +13,13 @@ NewVersionAvailable=Ny version tillgänglig!
 ; Supported media players.  These probably don't need translated unless they
 ; actually have a different name in other countries.
 Spotify=Spotify
-Itunes=iTunes
+iTunes=iTunes
+Winamp=Winamp
+foobar2000=foobar2000
+VLC=VLC
+GPMDP=GPMDP
+QuodLibet=Quod Libet
+WindowsMediaPlayer=Windows Media Player
 
 ; This text is saved to the Snip.txt file when the user switches media players
 ; from the right-click context menu.
@@ -30,6 +36,10 @@ PlayerIsNotRunning={0} körs inte just nu
 ; This text is saved to the Snip.txt file when no track is playing in the
 ; selected media file or when the user stops/pauses a playing track.
 NoTrackPlaying=Inget spår spelas
+
+; This text is displayed while Snip is trying to locate the SpotifyWebHelper
+; service to connect to.
+LocatingSpotifyWebHelper=Attempting to Locate SpotifyWebHelper
 
 ; This text is displayed on the right-click context menu and, when clicked,
 ; will open up the "Set Output Format" form where the user can customize how
@@ -62,7 +72,7 @@ ImageResolutionLarge=Stor
 ; This option is used to enable caching the JSON metadata that Snip
 ; downloads from Spotify. It allows Snip to read the data straight from the
 ; saved cache instead of downloading it each time.
-CacheSpotifyMetadata=Cacha Spotify metadata
+CacheSpotifyMetadata=Cache Spotify Metadata
 
 ; This text is displayed on the right-click context menu and, when enabled,
 ; will create a file called Snip_History.txt where it will append each track
@@ -91,7 +101,7 @@ ExitApplication=Avsluta
 
 ; This text is displayed in a MessageBox pop-up when there is a COM exception
 ; caused by trying to load the iTunes COM library.
-ItunesException=Var god avsluta iTunes och välj iTunes igen inuti Snip.
+iTunesException=Var god avsluta iTunes och välj iTunes igen inuti Snip.
 
 ######################
 # Output Format Form #
